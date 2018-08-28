@@ -57,14 +57,18 @@ const dynamicWrapper = (app, models, component) => {
 
 export const getRouterData = app => {
   const routerConfig = {
+    '/': {
+      component: dynamicWrapper(app, [], () =>
+        import('../layouts/BasicLayout')
+      ),
+    },
     '/popup': {
+      name: 'popup',
       component: dynamicWrapper(app, [], () => import('../routes/popup')),
     },
-    '/home': {
-      component: dynamicWrapper(app, [], () => import('../routes/home')),
-    },
-    '/city': {
-      component: dynamicWrapper(app, [], () => import('../routes/select-city')),
+    '/popup/toast': {
+      name: 'toast',
+      component: dynamicWrapper(app, [], () => import('../routes/popup/toast')),
     },
   };
 

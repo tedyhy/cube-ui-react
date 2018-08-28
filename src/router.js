@@ -12,18 +12,14 @@ dynamic.setDefaultLoadingComponent(() => {
 });
 function RouterConfig({ history, app }) {
   const routerData = getRouterData(app);
-  const PopupLayout = routerData['/popup'].component;
-  const HomeLayout = routerData['/home'].component;
-  const CityLayout = routerData['/city'].component;
+  const BasicLayout = routerData['/'].component;
 
   return (
     <ConnectedRouter history={history}>
       <div className="cube-page">
-        <ScrollMemory/>
+        <ScrollMemory />
         <Switch>
-          <Route exact path="/popup" component={PopupLayout} />
-          <Route exact path="/home" component={HomeLayout} />
-          <Route exact path="/city" component={CityLayout} />
+          <Route path="/" component={BasicLayout} />
         </Switch>
       </div>
     </ConnectedRouter>

@@ -1,11 +1,10 @@
 import React from 'react';
 import Popup from '../../components/popup';
-import './style.scss';
 
 let cur = 0;
 const positions = ['top', 'right', 'bottom', 'left', 'center'];
 
-export default class PopupLayout extends React.PureComponent {
+export default class ToastLayout extends React.PureComponent {
   state = {
     type: 'popup-dialog',
     mask: true,
@@ -40,7 +39,7 @@ export default class PopupLayout extends React.PureComponent {
 
   render() {
     return (
-      <div className="cube-content cube-popup-main">
+      <div className="cube-page-main">
         <div>
           <Popup type="my-popup" visible={this.state.visible1}>
             My Popup Content 1

@@ -1,5 +1,17 @@
-// 公共样式
-@import "./scss/index";
+
+html, body {
+  width: 100%;
+  height: 100%;
+  color: #333;
+  background: white;
+  font-family: -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
 
 .cube-page {
   position: absolute;
@@ -9,10 +21,6 @@
   width: 100%;
   height: 100%;
   background: rgb(239, 239, 244);
-}
-
-.cube-page-main {
-  margin: 10px;
 }
 
 .cube-btn {
@@ -33,4 +41,3 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
-

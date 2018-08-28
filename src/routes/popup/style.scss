@@ -1,18 +1,26 @@
-.cube-page-main {
+.cube-popup-main {
   > div {
     margin: 10px 0;
   }
+}
 
-  .cube-my-popup {
-    .cube-popup-center {
-      .cube-popup-content {
-        padding: 20px;
-      }
-    }
+.cube-my-popup {
+  .cube-popup-center {
     .cube-popup-content {
-      padding: 80px 20px;
-      color: #fff;
-      background-color: rgba(0, 0, 0, .8);
+      padding: 20px;
     }
+  }
+  .cube-popup-content {
+    padding: 80px 20px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, .8);
+  }
+}
+
+.cube-extend-popup {
+  .cube-extend-popup-content {
+    padding: 20px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, .8);
   }
 }
