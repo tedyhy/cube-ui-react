@@ -1,0 +1,18 @@
+.cube-page-main {
+  > div {
+    margin: 10px 0;
+  }
+
+  .cube-my-popup {
+    .cube-popup-center {
+      .cube-popup-content {
+        padding: 20px;
+      }
+    }
+    .cube-popup-content {
+      padding: 80px 20px;
+      color: #fff;
+      background-color: rgba(0, 0, 0, .8);
+    }
+  }
+}

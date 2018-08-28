@@ -1,0 +1,19 @@
+/**
+ * flex
+ */
+.flex {
+  display: flex;
+  // 垂直居中
+  align-items: center;
+
+  &.flex-center {
+    justify-content: center;
+  }
+
+  .flex-item {
+    flex: 1;
+    display: block; // 强制设置成 block 属性（uc中已知bug）
+    width: 0;
+    max-width: 100%;
+  }
+}

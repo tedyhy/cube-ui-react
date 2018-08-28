@@ -1,0 +1,134 @@
+/**
+ * 布局
+ */
+@import './variables';
+
+.container {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.touch-scrolling {
+  -webkit-overflow-scrolling: touch;
+}
+
+.pr {
+  position: relative;
+}
+
+.pa {
+  position: absolute;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.clearfix {
+  &:after {
+    display: table;
+    content: ' ';
+    clear: both;
+  }
+
+  &:before {
+    display: table;
+    content: ' ';
+  }
+}
+
+#layout {
+  .hide {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.hidden-with-width {
+  visibility: hidden !important;
+}
+
+// padding
+// padding-left : 30px;设计稿上的30px的间隔
+.pd-l-30 {
+  padding-left: 15px;
+}
+
+.pd-r-30 {
+  padding-right: 15px;
+}
+
+.pd-t-30 {
+  padding-top: 15px;
+}
+
+.pd-b-30 {
+  padding-bottom: 15px;
+}
+
+.pd-tb-30 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+// margin
+// margin-left: 30px;
+.mt10 {
+  margin-top: 10px;
+}
+
+.mg-l-30 {
+  margin-left: 15px;
+}
+
+.mg-r-30 {
+  margin-right: 15px;
+}
+
+.mg-lr-30 {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.mg-b-20 {
+  margin-bottom: 0.2rem;
+}
+
+.mg-t-20 {
+  margin-top: 0.2rem;
+}
+
+.line50 {
+  line-height: 25px;
+}
+
+// react-transition-group
+.app-animation-enter,
+.app-animation-appear {
+  opacity: 0.01;
+  transform: scale(1.3, 1.3);
+}
+.app-animation-appear-active,
+.app-animation-enter-active {
+  opacity: 1;
+  transform: scale(1, 1);
+  transition: all 0.35s ease-out;
+}

@@ -1,0 +1,123 @@
+@import "./variables";
+/* 1px hack */
+
+.border-t {
+  border-top: 1px solid $bg-light-gray;
+}
+
+.border-b {
+  border-bottom: 1px solid $bg-light-gray;
+}
+
+.border-tb {
+  border-top: $bg-light-gray 1px solid;
+  border-bottom: $bg-light-gray 1px solid;
+  background-image: none;
+}
+
+.border-l {
+  border-left: 1px solid $bg-light-gray;
+}
+
+.border-r {
+  border-right: 1px solid $bg-light-gray;
+}
+
+.border {
+  border: 1px solid $bg-light-gray;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .border {
+    position: relative;
+    border: 0;
+  }
+  .border-t,
+  .border-b,
+  .border-l,
+  .border-r,
+  .border-tb {
+    border: 0;
+  }
+  .border-t {
+    background-position: left top;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $bg-light-gray));
+  }
+  .border-b {
+    background-position: left bottom;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $bg-light-gray));
+  }
+  .border-t,
+  .border-b,
+  .border-tb {
+    background-repeat: repeat-x;
+    background-size: 100% 1px;
+  }
+  .border-tb {
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $bg-light-gray)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $bg-light-gray));
+    background-position: left top, left bottom;
+  }
+  .border-l {
+    background-position: left top;
+    background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, $bg-light-gray));
+  }
+  .border-r {
+    background-position: right top;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, $bg-light-gray));
+  }
+  .border-l,
+  .border-r {
+    background-repeat: repeat-y;
+    background-size: 1px 100%;
+  }
+  .border:after {
+    content: " ";
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    border: 1px solid $bg-light-gray;
+    transform-origin: top left;
+    transform: scale(0.5);
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 3) {
+
+  .border-t,
+  .border-b,
+  .border-l,
+  .border-r,
+  .border-tb {
+    background-image: none;
+  }
+
+  //ios 9.1 不能识别0.35px 以下的小数
+  .border-t {
+    border-top: .35px solid $bg-light-gray;
+  }
+
+  .border-b {
+    border-bottom: .35px solid $bg-light-gray;
+  }
+
+  .border-tb {
+    border-top: $bg-light-gray .35px solid;
+    border-bottom: $bg-light-gray .35px solid;
+    background-image: none;
+  }
+
+  .border-l {
+    border-left: .35px solid $bg-light-gray;
+  }
+
+  .border-r {
+    border-right: .35px solid $bg-light-gray;
+  }
+
+  .border {
+    border: .35px solid $bg-light-gray;
+  }
+}
