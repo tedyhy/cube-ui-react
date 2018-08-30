@@ -1,4 +1,6 @@
 
+@import "./scss/index.scss";
+
 html, body {
   width: 100%;
   height: 100%;
@@ -6,11 +8,7 @@ html, body {
   background: white;
   font-family: -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif;
   -webkit-font-smoothing: antialiased;
-}
-
-* {
-  margin: 0;
-  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .cube-page {
@@ -40,4 +38,21 @@ html, body {
   border-radius: 2px;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+}
+
+.error-flex{
+  display: flex;
+  height: 100%;
+  text-align: center;
+  align-items: center;
+  line-height: 2.4;
+}
+
+.error-flex-item{
+  flex: 1;
+}
+
+.text-tip {
+  color: #999;
+  font-size: 12px;
 }

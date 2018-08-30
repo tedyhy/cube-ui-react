@@ -62,6 +62,12 @@ export const getRouterData = app => {
         import('../layouts/BasicLayout')
       ),
     },
+    '/base/loading': {
+      name: 'loading',
+      component: dynamicWrapper(app, [], () =>
+        import('../routes/base/loading')
+      ),
+    },
     '/popup': {
       name: 'popup',
       component: dynamicWrapper(app, [], () => import('../routes/popup')),
@@ -69,6 +75,12 @@ export const getRouterData = app => {
     '/popup/toast': {
       name: 'toast',
       component: dynamicWrapper(app, [], () => import('../routes/popup/toast')),
+    },
+    '/popup/picker': {
+      name: 'picker',
+      component: dynamicWrapper(app, [], () =>
+        import('../routes/popup/picker')
+      ),
     },
   };
 

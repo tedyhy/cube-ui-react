@@ -1,0 +1,142 @@
+
+@import "../../scss/mixin.scss";
+
+.cube-picker-panel {
+  height: 273px;
+  text-align: center;
+  font-size: 14px;
+  background: #fff;
+}
+
+.cube-picker-choose {
+  position: relative;
+  height: 60px;
+}
+
+.cube-picker-confirm, .cube-picker-cancel {
+  line-height: 60px;
+  padding: 0 16px;
+  box-sizing: content-box;
+  font-size: 14px;
+}
+
+.cube-picker-confirm {
+  position: absolute;
+  right: 0;
+  color: #fc9153;
+  &:active {
+    color: #fdc2a5;
+  }
+}
+
+.cube-picker-cancel {
+  position: absolute;
+  left: 0;
+  color: #999;
+  &:active {
+    color: #ccc;
+  }
+}
+
+.cube-picker-title-group {
+  padding: 0 60px;
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.cube-picker-title {
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: normal;
+  color: #333
+}
+
+.cube-picker-subtitle {
+  margin-top: 2px;
+  line-height: 16px;
+  font-size: 12px;
+  color: #999
+}
+
+.cube-picker-content {
+  position: relative;
+  top: 20px;
+  > i {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    width: 100%;
+    height: 68px;
+    pointer-events: none;
+    transform: translateZ(0);
+  }
+  > .border-bottom-1px {
+    top: 0;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8));
+  }
+  > .border-top-1px {
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8));
+  }
+}
+
+.cube-picker-wheel-wrapper {
+  display: flex;
+  padding: 0 16px;
+  > div {
+    @include flex-fix();
+    height: 173px;
+    overflow: hidden;
+    font-size: 20px;
+  }
+}
+
+.cube-picker-wheel-scroll {
+  padding: 0;
+  margin-top: 68px;
+  line-height: 36px;
+  list-style: none;
+}
+
+.cube-picker-wheel-item {
+  list-style: none;
+  height: 36px;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #333
+}
+
+.cube-picker-footer {
+  height: 20px;
+}
+
+// animate
+.cube-picker-fade-enter {
+  opacity: 0.01;
+}
+.cube-picker-fade-enter-active {
+  opacity: 1;
+  transition: all .3s ease-in-out;
+}
+.cube-picker-fade-exit {
+  opacity: 1;
+}
+.cube-picker-fade-exit-active {
+  opacity: 0.01;
+  transition: all .3s ease-in-out;
+}
+
+.cube-picker-move-enter {
+  transform: translate3d(0, 100%, 0);
+}
+.cube-picker-move-enter-active {
+  transform: translate3d(0, 0, 0);
+  transition: all .3s ease-in-out;
+}
+.cube-picker-move-exit-active {
+  transform: translate3d(0, 100%, 0);
+  transition: all .3s ease-in-out;
+}

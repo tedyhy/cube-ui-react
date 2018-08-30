@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import addEventListener from 'rc-util/lib/Dom/addEventListener';
 import './style.scss';
 
 export default class Popup extends React.PureComponent {
@@ -32,6 +33,23 @@ export default class Popup extends React.PureComponent {
     isVisible: this.props.visible,
   };
 
+  handler = null;
+
+  componentDidMount() {
+    this.handler = addEventListener(
+      this.$popup,
+      'touchmove',
+      this.preventDefault
+    );
+  }
+
+  componentWillUnmount() {
+    const handler = this.handler;
+    if (handler && handler.remove) {
+      handler.remove();
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.visible !== this.props.visible) {
       if (nextProps.visible) {
@@ -49,6 +67,10 @@ export default class Popup extends React.PureComponent {
   hide = () => {
     this.setState({ isVisible: false });
   };
+
+  preventDefault(e) {
+    e.preventDefault();
+  }
 
   stopPropagation(e) {
     e.stopPropagation();
@@ -79,9 +101,9 @@ export default class Popup extends React.PureComponent {
 
     return (
       <div
+        ref={ref => (this.$popup = ref)}
         className={rootClass}
         style={rootStyle}
-        onTouchMove={this.stopPropagation}
       >
         <div className="cube-popup-mask" onClick={this.maskClick}>
           {maskCnt}

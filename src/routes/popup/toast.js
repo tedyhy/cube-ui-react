@@ -1,106 +1,111 @@
 import React from 'react';
-import Popup from '../../components/popup';
+import Toast from '../../components/toast';
 
-let cur = 0;
-const positions = ['top', 'right', 'bottom', 'left', 'center'];
-
-export default class ToastLayout extends React.PureComponent {
+export default class ToastExample extends React.PureComponent {
   state = {
-    type: 'popup-dialog',
-    mask: true,
-    visible1: false,
-    visible2: false,
-    visible3: false,
-    visible4: false,
+    options: {},
   };
 
-  position = '';
-
-  showPopup = i => e => {
-    if (i === 4) {
-      this.position = positions[cur++];
-      if (cur === positions.length) {
-        cur = 0;
+  showToastTime = () => {
+    this.setState(
+      {
+        options: {
+          time: 1000,
+          txt: 'Toast time 1s',
+          onTimeout: () => {
+            console.log('timeout');
+          },
+        },
+      },
+      () => {
+        this.$toast.show();
       }
-    }
-    this.setState({ ['visible' + i]: true });
-    setTimeout(() => {
-      this.setState({ ['visible' + i]: false });
-    }, 2000);
+    );
   };
 
-  show = () => {
-    this.$popup.show();
+  showToastTime0 = () => {
+    this.setState(
+      {
+        options: {
+          time: 0,
+          txt: 'Toast time 0',
+        },
+      },
+      () => {
+        this.$toast.show();
+        setTimeout(() => {
+          this.$toast.hide();
+        }, 2000);
+      }
+    );
   };
 
-  hide = () => {
-    this.$popup.hide();
+  showToastMask = () => {
+    this.setState(
+      {
+        options: {
+          txt: 'Loading...',
+          mask: true,
+        },
+      },
+      () => {
+        this.$toast.show();
+      }
+    );
+  };
+
+  showToastType = () => {
+    this.setState(
+      {
+        options: {
+          txt: 'Correct',
+          type: 'correct',
+        },
+      },
+      () => {
+        this.$toast.show();
+      }
+    );
   };
 
   render() {
     return (
-      <div className="cube-page-main">
-        <div>
-          <Popup type="my-popup" visible={this.state.visible1}>
-            My Popup Content 1
-          </Popup>
+      <div className="cube-main">
+        <Toast ref={ref => (this.$toast = ref)} {...this.state.options} />
+        <div className="cube-item">
           <button
             type="button"
             className="cube-btn"
-            onClick={this.showPopup(1)}
+            onClick={this.showToastTime}
           >
-            Show Popup
+            Toast - time 1s
           </button>
         </div>
-        <div>
-          <Popup type="my-popup" visible={this.state.visible2} mask={false}>
-            My Popup Content 2
-          </Popup>
+        <div className="cube-item">
           <button
             type="button"
             className="cube-btn"
-            onClick={this.showPopup(2)}
+            onClick={this.showToastTime0}
           >
-            Show Popup - no mask
+            Toast - time 0
           </button>
         </div>
-        <div>
-          <Popup type="my-popup" visible={this.state.visible3} mask={false}>
-            <i>My Popup Content 3</i>
-          </Popup>
+        <div className="cube-item">
           <button
             type="button"
             className="cube-btn"
-            onClick={this.showPopup(3)}
+            onClick={this.showToastMask}
           >
-            Show Popup - with content
+            Toast - with mask
           </button>
         </div>
-        <div>
-          <Popup
-            type="my-popup"
-            visible={this.state.visible4}
-            position={this.position}
-            maskClosable
-          >
-            My Popup Content 4
-          </Popup>
+        <div className="cube-item">
           <button
             type="button"
             className="cube-btn"
-            onClick={this.showPopup(4)}
+            onClick={this.showToastType}
           >
-            top/right/bottom/left/center
-          </button>
-        </div>
-        <div>
-          <Popup type="extend-popup" ref={ref => (this.$popup = ref)}>
-            <div className="cube-extend-popup-content" onClick={this.hide}>
-              click here hide
-            </div>
-          </Popup>
-          <button type="button" className="cube-btn" onClick={this.show}>
-            Show Extend Popup
+            Toast - type
           </button>
         </div>
       </div>

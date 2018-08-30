@@ -10,6 +10,7 @@
     "history": "^4.7.2",
     "path-to-regexp": "^2.4.0",
     "prop-types": "^15.6.2",
+    "rc-util": "^4.5.1",
     "react": "^16.4.1",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.4.1",

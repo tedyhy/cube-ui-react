@@ -43,12 +43,14 @@ export default class BasicLayout extends React.PureComponent {
 
   render() {
     const { match, routerData } = this.props;
+    const title = this.getPageTitle();
+    console.log(match, getRoutes(match.path, routerData));
 
     return (
-      <DocumentTitle title={this.getPageTitle()}>
+      <DocumentTitle title={title}>
         <div className="cube-page-layout">
           <header className="header">
-            <h1>弹出层</h1>
+            <h1>{title.replace(' - Cube Ui', '')}</h1>
           </header>
           <Switch>
             {getRoutes(match.path, routerData).map(item => (

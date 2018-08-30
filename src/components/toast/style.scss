@@ -1,0 +1,45 @@
+.cube-toast {
+  &.cube-popup {
+    z-index: 900;
+  }
+
+  .cube-popup-content {
+    display: flex;
+    align-items: center;
+    padding: 13px 16px;
+    color: #ccc;
+    background-color: rgba(37,38,45,.9);
+    border-radius: 2px;
+  }
+}
+
+.cube-toast-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+.cube-toast-tip {
+  margin-left: 8px;
+  max-width: 12em;
+  max-height: 40px;
+  line-height: 20px;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+// animate
+.cube-toast-fade-enter-active {
+  animation: toast-in .25s;
+}
+.cube-toast-fade-exit-active {
+  animation: toast-out .25s;
+}
+@keyframes toast-in {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
+@keyframes toast-out {
+  0% {opacity: 1}
+  100% {opacity: 0}
+}
