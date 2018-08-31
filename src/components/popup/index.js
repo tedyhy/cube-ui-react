@@ -8,6 +8,7 @@ export default class Popup extends React.PureComponent {
   static propTypes = {
     visible: PropTypes.bool,
     type: PropTypes.string,
+    className: PropTypes.string,
     style: PropTypes.object,
     mask: PropTypes.bool,
     maskCnt: PropTypes.any,
@@ -20,6 +21,7 @@ export default class Popup extends React.PureComponent {
   static defaultProps = {
     visible: false,
     type: '',
+    className: '',
     style: {},
     mask: true,
     maskCnt: '',
@@ -88,8 +90,16 @@ export default class Popup extends React.PureComponent {
   };
 
   render() {
-    const { type, style, mask, maskCnt, center, position } = this.props;
-    const rootClass = classNames('cube-popup', {
+    const {
+      type,
+      className,
+      style,
+      mask,
+      maskCnt,
+      center,
+      position,
+    } = this.props;
+    const rootClass = classNames('cube-popup', className, {
       'cube-popup_mask': mask,
       [`cube-${type}`]: type,
     });
