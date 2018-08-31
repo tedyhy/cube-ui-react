@@ -6,119 +6,84 @@ import { delay } from '../../utils/utils';
 
 export default class PickerExample extends React.PureComponent {
   state = {
-    pickerOpts: {},
     toastOpts: {},
+    updatePropsPickerOpts: {
+      title: 'Use updateProps',
+      data: [data1],
+      selectedIndex: [0],
+      onSelect: this.selectHandle,
+      onCancel: this.cancelHandle,
+    },
+  };
+
+  pickerOpts = {
+    title: 'Picker',
+    data: [data1],
+    onSelect: this.selectHandle,
+    onCancel: this.cancelHandle,
+  };
+  mutiPickerOpts = {
+    title: 'Multi-column Picker',
+    data: [data1, data2, data3],
+    onSelect: this.selectHandle,
+    onCancel: this.cancelHandle,
+  };
+  setDataPickerOpts = {
+    title: 'Use SetData',
+    onSelect: this.selectHandle,
+    onCancel: this.cancelHandle,
+  };
+  aliasPickerOpts = {
+    title: 'Use Alias',
+    data: [[{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }]],
+    alias: {
+      value: 'id',
+      text: 'name',
+    },
+    onSelect: this.selectHandle,
+    onCancel: this.cancelHandle,
+  };
+  subtitlePickerOpts = {
+    title: 'Picker',
+    subtitle: 'subtitle',
+    data: [data1],
+    onSelect: this.selectHandle,
+    onCancel: this.cancelHandle,
   };
 
   showPicker = () => {
-    this.setState(
-      {
-        pickerOpts: {
-          title: 'Picker',
-          data: [data1],
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle,
-        },
-      },
-      () => {
-        this.$picker.show();
-      }
-    );
-  };
-
-  showMutiPicker = () => {
-    this.setState(
-      {
-        pickerOpts: {
-          title: 'Multi-column Picker',
-          data: [data1, data2, data3],
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle,
-        },
-      },
-      () => {
-        this.$picker.show();
-      }
-    );
-  };
-
-  showAliasPicker = () => {
-    this.setState(
-      {
-        pickerOpts: {
-          title: 'Use Alias',
-          data: [
-            [{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 3, name: 'C' }],
-          ],
-          alias: {
-            value: 'id',
-            text: 'name',
-          },
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle,
-        },
-      },
-      () => {
-        this.$picker.show();
-      }
-    );
-  };
-
-  showSetDataPicker = () => {
-    this.setState(
-      {
-        pickerOpts: {
-          title: 'Use SetData',
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle,
-        },
-      },
-      () => {
-        this.$picker.setData([data1, data2, data3], [1, 2, 3]);
-        this.$picker.show();
-      }
-    );
-  };
-
-  showUpdatePropsPicker = async () => {
     this.$picker.show();
+  };
+  showMutiPicker = () => {
+    this.$mutiPicker.show();
+  };
+  showAliasPicker = () => {
+    this.$aliasPicker.show();
+  };
+  showSetDataPicker = () => {
+    this.$setDataPicker.setData([data1, data2, data3], [1, 2, 3]);
+    this.$setDataPicker.show();
+  };
+  showUpdatePropsPicker = async () => {
+    this.$updatePropsPicker.show();
+
     await delay(1e3);
 
     this.setState({
-      pickerOpts: {
+      updatePropsPickerOpts: {
         title: 'Updated',
         data: [data1, data2, data3],
         selectedIndex: [1, 2, 3],
       },
     });
   };
-
   showSubtitlePicker = () => {
-    this.setState(
-      {
-        pickerOpts: {
-          title: 'Picker',
-          subtitle: 'subtitle',
-          data: [data1],
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle,
-        },
-      },
-      () => {
-        this.$picker.show();
-      }
-    );
+    this.$subtitlePicker.show();
   };
 
   selectHandle = (selectedVal, selectedIndex, selectedText) => {
-    // this.$createDialog({
-    //   type: 'warn',
-    //   content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-    //   icon: 'cubeic-alert'
-    // }).show()
     console.log(selectedVal, selectedIndex, selectedText);
   };
-
   cancelHandle = () => {
     this.setState(
       {
@@ -137,15 +102,19 @@ export default class PickerExample extends React.PureComponent {
   render() {
     return (
       <div className="cube-main">
-        <Picker ref={ref => (this.$picker = ref)} {...this.state.pickerOpts} />
         <Toast ref={ref => (this.$toast = ref)} {...this.state.toastOpts} />
 
         <div className="cube-item">
+          <Picker ref={ref => (this.$picker = ref)} {...this.pickerOpts} />
           <button type="button" className="cube-btn" onClick={this.showPicker}>
             Picker
           </button>
         </div>
         <div className="cube-item">
+          <Picker
+            ref={ref => (this.$mutiPicker = ref)}
+            {...this.mutiPickerOpts}
+          />
           <button
             type="button"
             className="cube-btn"
@@ -155,6 +124,10 @@ export default class PickerExample extends React.PureComponent {
           </button>
         </div>
         <div className="cube-item">
+          <Picker
+            ref={ref => (this.$aliasPicker = ref)}
+            {...this.aliasPickerOpts}
+          />
           <button
             type="button"
             className="cube-btn"
@@ -164,6 +137,10 @@ export default class PickerExample extends React.PureComponent {
           </button>
         </div>
         <div className="cube-item">
+          <Picker
+            ref={ref => (this.$setDataPicker = ref)}
+            {...this.setDataPickerOpts}
+          />
           <button
             type="button"
             className="cube-btn"
@@ -173,6 +150,10 @@ export default class PickerExample extends React.PureComponent {
           </button>
         </div>
         <div className="cube-item">
+          <Picker
+            ref={ref => (this.$updatePropsPicker = ref)}
+            {...this.state.updatePropsPickerOpts}
+          />
           <button
             type="button"
             className="cube-btn"
@@ -182,6 +163,10 @@ export default class PickerExample extends React.PureComponent {
           </button>
         </div>
         <div className="cube-item">
+          <Picker
+            ref={ref => (this.$subtitlePicker = ref)}
+            {...this.subtitlePickerOpts}
+          />
           <button
             type="button"
             className="cube-btn"

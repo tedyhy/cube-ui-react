@@ -72,7 +72,9 @@ export default class Picker extends React.PureComponent {
 
     // picker wheel 实例集合
     this.wheels = null;
-    // TODO: wft
+    // 可以理解为“暗箱操作”过的标识
+    // “暗箱操作”过的 wheel 下次显示的时候需要重新初始化（启用、滚动、清理 extra wheels等）
+    // 默认第一次为“暗箱操作”
     this.dirty = true;
   }
 
@@ -95,10 +97,6 @@ export default class Picker extends React.PureComponent {
     ) {
       this.merge(nextProps.data, nextProps.selectedIndex);
     }
-  }
-
-  componentDidUpdate() {
-    this.refresh();
   }
 
   show = () => {
@@ -133,11 +131,12 @@ export default class Picker extends React.PureComponent {
   };
   setData = (data, selectedIndex) => {
     this.pickerSelectedIndex = selectedIndex ? [...selectedIndex] : [];
-    this.setState({ pickerData: data.slice() }, pickerData => {
+
+    this.setState({ pickerData: data.slice() }, () => {
       if (this.state.isVisible) {
         setTimeout(() => {
           const wheelWrapper = this.$wheelWrapper;
-          pickerData.forEach((item, i) => {
+          this.state.pickerData.forEach((item, i) => {
             this._createWheel(wheelWrapper, i);
             this.wheels[i].wheelTo(this.pickerSelectedIndex[i]);
           });
@@ -219,45 +218,6 @@ export default class Picker extends React.PureComponent {
   maskClick = () => {
     this.props.maskClosable && this.cancel();
   };
-  /*
-  refill = (datas) => {
-    let ret = []
-    if (!datas.length) {
-      return ret
-    }
-    datas.forEach((data, index) => {
-      ret[index] = this.refillColumn(index, data)
-    })
-    return ret
-  }
-  refillColumn(index, data) {
-    const wheelWrapper = this.$wheelWrapper
-    let scroll = wheelWrapper.children[index].querySelector('.cube-picker-wheel-scroll')
-    let wheel = this.wheels ? this.wheels[index] : null
-    let dist = 0
-    if (scroll && wheel) {
-      let oldData = this.state.pickerData[index]
-      this.$set(this.pickerData, index, data)
-      let selectedIndex = wheel.getSelectedIndex()
-      if (oldData.length) {
-        let oldValue = oldData[selectedIndex][valueKey]
-        for (let i = 0; i < data.length; i++) {
-          if (data[i][valueKey] === oldValue) {
-            dist = i
-            break
-          }
-        }
-      }
-      this.pickerSelectedIndex[index] = dist
-      this.$nextTick(() => {
-        // recreate wheel so that the wrapperHeight will be correct.
-        wheel = this._createWheel(wheelWrapper, index)
-        wheel.wheelTo(dist)
-      })
-    }
-    return dist
-  }
-  */
   scrollTo = (index, dist) => {
     const wheel = this.wheels[index];
     this.pickerSelectedIndex[index] = dist;
