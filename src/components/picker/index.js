@@ -228,6 +228,52 @@ export default class Picker extends React.PureComponent {
       this.wheels && this.wheels.forEach(wheel => wheel.refresh());
     });
   };
+  // 填充 data 部分数据后，获取被填充部分的之前选项值并在 wheel 中的滚动选中该值的项
+  refill = datas => {
+    let ret = [];
+    if (!datas.length) {
+      return ret;
+    }
+    datas.forEach((data, index) => {
+      ret[index] = this.refillColumn(index, data);
+    });
+    return ret;
+  };
+  refillColumn = (index, data) => {
+    const wheelWrapper = this.$wheelWrapper;
+    const valueKey = this.props.alias.value || DEFAULT_KEYS.value;
+
+    const scroll = wheelWrapper.children[index].querySelector(
+      '.cube-picker-wheel-scroll'
+    );
+    let wheel = this.wheels ? this.wheels[index] : null;
+    let dist = 0;
+    if (scroll && wheel) {
+      const oldData = this.state.pickerData[index];
+      const selectedIndex = wheel.getSelectedIndex();
+      if (oldData.length) {
+        const oldValue = oldData[selectedIndex][valueKey];
+        for (let i = 0; i < data.length; i++) {
+          if (data[i][valueKey] === oldValue) {
+            dist = i;
+            break;
+          }
+        }
+      }
+      this.pickerSelectedIndex[index] = dist;
+
+      let newData = this.state.pickerData.slice();
+      newData.splice(index, 1, data.slice());
+      this.setState({ pickerData: newData }, () => {
+        setTimeout(() => {
+          // recreate wheel so that the wrapperHeight will be correct.
+          wheel = this._createWheel(wheelWrapper, index);
+          wheel.wheelTo(dist);
+        });
+      });
+    }
+    return dist;
+  };
 
   _createWheel = (wheelWrapper, i) => {
     if (!this.wheels[i]) {

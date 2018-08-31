@@ -1,20 +1,19 @@
 import React from 'react';
 import Picker from '../../components/picker';
 import Toast from '../../components/toast';
-import { data1, data2, data3 } from '../../services/picker';
+import { data1, data2, data3, data4 } from '../../services/picker';
 import { delay } from '../../utils/utils';
 
 export default class PickerExample extends React.PureComponent {
-  state = {
-    toastOpts: {},
-    updatePropsPickerOpts: {
-      title: 'Use updateProps',
-      data: [data1],
-      selectedIndex: [0],
-      onSelect: this.selectHandle,
-      onCancel: this.cancelHandle,
-    },
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      toastOpts: {},
+      updatePropsPickerOpts: this.updatePropsPickerOpts,
+      refillPickerOpts: this.refillPickerOpts,
+    };
+  }
 
   pickerOpts = {
     title: 'Picker',
@@ -50,6 +49,20 @@ export default class PickerExample extends React.PureComponent {
     onSelect: this.selectHandle,
     onCancel: this.cancelHandle,
   };
+  updatePropsPickerOpts = {
+    title: 'Use updateProps',
+    data: [data1],
+    selectedIndex: [0],
+    onSelect: this.selectHandle,
+    onCancel: this.cancelHandle,
+  };
+  refillPickerOpts = {
+    title: 'Refill',
+    data: [data3],
+    selectedIndex: [4],
+    onSelect: this.selectHandle,
+    onCancel: this.cancelHandle,
+  };
 
   showPicker = () => {
     this.$picker.show();
@@ -67,7 +80,7 @@ export default class PickerExample extends React.PureComponent {
   showUpdatePropsPicker = async () => {
     this.$updatePropsPicker.show();
 
-    await delay(1e3);
+    await delay(2e3);
 
     this.setState({
       updatePropsPickerOpts: {
@@ -79,6 +92,26 @@ export default class PickerExample extends React.PureComponent {
   };
   showSubtitlePicker = () => {
     this.$subtitlePicker.show();
+  };
+  showRefillPicker = async () => {
+    this.setState(
+      {
+        refillPickerOpts: {
+          title: 'Refill',
+          data: [data3],
+          selectedIndex: [4],
+          onSelect: this.selectHandle,
+          onCancel: this.cancelHandle,
+        },
+      },
+      () => {
+        this.$refillPicker.show();
+      }
+    );
+
+    await delay(2e3);
+
+    this.$refillPicker.refill([data4]);
   };
 
   selectHandle = (selectedVal, selectedIndex, selectedText) => {
@@ -173,6 +206,19 @@ export default class PickerExample extends React.PureComponent {
             onClick={this.showSubtitlePicker}
           >
             Use subtitle
+          </button>
+        </div>
+        <div className="cube-item">
+          <Picker
+            ref={ref => (this.$refillPicker = ref)}
+            {...this.state.refillPickerOpts}
+          />
+          <button
+            type="button"
+            className="cube-btn"
+            onClick={this.showRefillPicker}
+          >
+            Use refill
           </button>
         </div>
       </div>

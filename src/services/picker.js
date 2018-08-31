@@ -123,6 +123,33 @@ const data3 = [
   },
 ];
 
+const data4 = [
+  {
+    text: '梅肯2',
+    value: '梅肯2',
+  },
+  {
+    text: '秘法鞋2',
+    value: '秘法鞋2',
+  },
+  {
+    text: '假腿2',
+    value: '假腿2',
+  },
+  {
+    text: '飞鞋',
+    value: '飞鞋',
+  },
+  {
+    text: '辉耀',
+    value: '辉耀',
+  },
+  {
+    text: '金箍棒2',
+    value: '金箍棒2',
+  },
+];
+
 const expressData = [
   {
     text: '顺丰',
@@ -138,4 +165,4 @@ const expressData = [
   },
 ];
 
-export { data1, data2, data3, expressData };
+export { data1, data2, data3, data4, expressData };
