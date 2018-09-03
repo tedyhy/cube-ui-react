@@ -82,6 +82,12 @@ export const getRouterData = app => {
         import('../routes/popup/picker')
       ),
     },
+    '/popup/action-sheet': {
+      name: 'action-sheet',
+      component: dynamicWrapper(app, [], () =>
+        import('../routes/popup/action-sheet')
+      ),
+    },
   };
 
   // Route configuration data

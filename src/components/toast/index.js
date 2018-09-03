@@ -118,7 +118,12 @@ export default class Toast extends React.PureComponent {
             <i className={classNames('cube-toast-icon', iconClassString)} />
           )}
           {isLoading && <Loading />}
-          {txt && <div className="cube-toast-tip">{txt}</div>}
+          {txt && (
+            <div
+              className="cube-toast-tip"
+              dangerouslySetInnerHTML={{ __html: txt }}
+            />
+          )}
         </Popup>
       </CSSTransition>
     );

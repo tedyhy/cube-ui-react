@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 import Popup from '../popup';
 import './style.scss';
+
+const liClsString = (item, index, active) =>
+  classNames('cube-action-sheet-item border-bottom-1px', item.class || '', {
+    'cube-action-sheet-item_active': index === active,
+  });
 
 export default class ActionSheet extends React.PureComponent {
   static propTypes = {
@@ -25,7 +31,7 @@ export default class ActionSheet extends React.PureComponent {
     active: -1,
     zIndex: 100,
     maskClosable: true,
-    pickerStyle: true,
+    pickerStyle: false,
     data: [],
     onSelect: () => {},
     onCancel: () => {},
@@ -33,6 +39,7 @@ export default class ActionSheet extends React.PureComponent {
 
   state = {
     isVisible: false,
+    isPopupVisible: false,
   };
 
   show = () => {
@@ -55,7 +62,7 @@ export default class ActionSheet extends React.PureComponent {
   maskClick = () => {
     this.props.maskClosable && this.cancel();
   };
-  itemClick = (item, index) => {
+  itemClick = (item, index) => () => {
     this.hide();
     this.props.onSelect && this.props.onSelect(item, index);
   };
@@ -68,7 +75,7 @@ export default class ActionSheet extends React.PureComponent {
   }
 
   render() {
-    const { title, cancelTxt, pickerStyle } = this.props;
+    const { title, cancelTxt, pickerStyle, zIndex, data, active } = this.props;
     const { isVisible, isPopupVisible } = this.state;
     const rootClass = pickerStyle ? 'cube-action-sheet_picker' : '';
     const rootStyle = { zIndex };
@@ -104,9 +111,18 @@ export default class ActionSheet extends React.PureComponent {
                 </h1>
               ) : null}
               <div className="cube-action-sheet-content">
-                <ul className="cube-action-sheet-list" />
+                <ul className="cube-action-sheet-list">
+                  {data.map((item, index) => (
+                    <li
+                      key={`${item.content}`}
+                      data-align={item.align}
+                      className={liClsString(item, index, active)}
+                      onClick={this.itemClick(item, index)}
+                      dangerouslySetInnerHTML={{ __html: item.content }}
+                    />
+                  ))}
+                </ul>
               </div>
-
               <div className="cube-action-sheet-space" />
               <div className="cube-action-sheet-cancel" onClick={this.cancel}>
                 <span>{cancelTxt}</span>
