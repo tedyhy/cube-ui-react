@@ -88,6 +88,12 @@ export const getRouterData = app => {
         import('../routes/popup/action-sheet')
       ),
     },
+    '/popup/dialog': {
+      name: 'dialog',
+      component: dynamicWrapper(app, [], () =>
+        import('../routes/popup/dialog')
+      ),
+    },
   };
 
   // Route configuration data
