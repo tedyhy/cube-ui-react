@@ -32,6 +32,7 @@ export default class Toast extends React.PureComponent {
 
   state = {
     isVisible: this.props.visible,
+    isPopupVisible: false,
   };
 
   timer = null;
@@ -62,6 +63,14 @@ export default class Toast extends React.PureComponent {
   hide = () => {
     this.clearTimer();
     this.setState({ isVisible: false });
+  };
+
+  showPopup = () => {
+    this.setState({ isPopupVisible: true });
+  };
+
+  hidePopup = () => {
+    this.setState({ isPopupVisible: false });
   };
 
   clearTimer = () => {
@@ -96,19 +105,21 @@ export default class Toast extends React.PureComponent {
 
   render() {
     const { type, txt, mask, zIndex } = this.props;
+    const { isVisible, isPopupVisible } = this.state;
     const iconClassString = this.iconClass();
     const style = { zIndex };
     const isLoading = type === 'loading';
 
     return (
       <CSSTransition
-        in={this.state.isVisible}
+        in={isVisible}
         timeout={200}
         classNames="cube-toast-fade"
-        unmountOnExit
+        onEnter={this.showPopup}
+        onExited={this.hidePopup}
       >
         <Popup
-          visible
+          visible={isPopupVisible}
           type="toast"
           style={style}
           mask={mask}

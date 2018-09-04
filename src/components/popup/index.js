@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import addEventListener from 'rc-util/lib/Dom/addEventListener';
+import Portal from '../common/Portal';
 import './style.scss';
 
 export default class Popup extends React.PureComponent {
@@ -38,11 +39,13 @@ export default class Popup extends React.PureComponent {
   handler = null;
 
   componentDidMount() {
-    this.handler = addEventListener(
-      this.$popup,
-      'touchmove',
-      this.preventDefault
-    );
+    setTimeout(() => {
+      this.handler = addEventListener(
+        this.$popup,
+        'touchmove',
+        this.preventDefault
+      );
+    });
   }
 
   componentWillUnmount() {
@@ -68,6 +71,16 @@ export default class Popup extends React.PureComponent {
 
   hide = () => {
     this.setState({ isVisible: false });
+  };
+
+  getContainer = () => {
+    const container = document.createElement('div');
+    if (this.props.getContainer) {
+      this.props.getContainer().appendChild(container);
+    } else {
+      document.body.appendChild(container);
+    }
+    return container;
   };
 
   preventDefault(e) {
@@ -110,18 +123,21 @@ export default class Popup extends React.PureComponent {
     const rootStyle = { ...style, display: this.state.isVisible ? '' : 'none' };
 
     return (
-      <div
-        ref={ref => (this.$popup = ref)}
-        className={rootClass}
-        style={rootStyle}
-      >
-        <div className="cube-popup-mask" onClick={this.maskClick}>
-          {maskCnt}
+      <Portal getContainer={this.getContainer}>
+        <div
+          ref={ref => (this.$popup = ref)}
+          className={rootClass}
+          style={rootStyle}
+          onTouchMove={this.preventDefault}
+        >
+          <div className="cube-popup-mask" onClick={this.maskClick}>
+            {maskCnt}
+          </div>
+          <div className={containerClass}>
+            <div className="cube-popup-content">{this.props.children}</div>
+          </div>
         </div>
-        <div className={containerClass}>
-          <div className="cube-popup-content">{this.props.children}</div>
-        </div>
-      </div>
+      </Portal>
     );
   }
 }

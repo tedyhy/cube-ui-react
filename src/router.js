@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'dva/dynamic';
 import { routerRedux, Route, Switch } from 'dva/router';
 import { getRouterData } from './common/router';
-import LoadingComponent from './components/LoadingComponent';
+import LoadingComponent from './common/LoadingComponent';
 import ScrollMemory from 'react-router-scroll-memory';
 
 const { ConnectedRouter } = routerRedux;
